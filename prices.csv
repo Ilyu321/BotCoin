@@ -1,0 +1,41 @@
+Model Name;Provider;Input Price;Output Price;Features
+google/gemma-3-27b-it;StackIT;$0.45M tokens;$0.65M tokens;DE
+;;;;Sovereign
+intfloat/e5-mistral-7b-instruct;StackIT;$0.08M tokens;Free;DE
+;;;;Sovereign
+;;;;embedding
+llama-3-3-70b-sovereign;Abc hosted;?Free;?Free;DE
+;;;;abc hosted
+;;;;Sovereign
+gpt-oss-120b-sovereign;Abc hosted;?Free;?Free;DE
+;;;;abc hosted
+;;;;Sovereign
+o3-mini;Azure;$1.21M tokens;$4.84M tokens;EU-Hosted
+text-embedding-3-large;Azure;$0.16M tokens;Free;EU-Hosted
+;;;;Embedding
+gpt-4o-mini;Azure;$0.17M tokens;$0.66M tokens;EU-Hosted
+o4-mini;Azure;$1.21M tokens;$4.84M tokens;EU-Hosted
+gpt-4o;Azure;$2.75M tokens;$11.00M tokens;EU-Hosted
+gpt-4.1;Azure;$2.20M tokens;$8.80M tokens;EU-Hosted
+gpt-4.1-mini;Azure;$0.44M tokens;$1.76M tokens;EU-Hosted
+gpt-4.1-nano;Azure;$0.11M tokens;$0.44M tokens;EU-Hosted
+gpt-5;Azure;$1.38M tokens;$11.00M tokens;EU-Hosted
+gpt-5-mini;Azure;$0.28M tokens;$2.20M tokens;EU-Hosted
+gpt-5-nano;Azure;$0.06M tokens;$0.44M tokens;EU-Hosted
+gpt-5.1;Azure;$1.38M tokens;$11.00M tokens;EU-Hosted
+qwen3-coder-480b;AWS;$0.22M tokens;$1.80M tokens;EU-Hosted
+qwen3-235b;AWS;$0.22M tokens;$0.88M tokens;EU-Hosted
+claude-opus-4-5;Google;$5.00M tokens;$25.00M tokens;EU-Hosted
+claude-opus-4-5*;;;;
+claude-sonnet-4-5;Google;$3.00M tokens;$15.00M tokens;EU-Hosted
+claude-sonnet-4-5*;;;;
+claude-haiku-4-5;Google;$1.00M tokens;$5.00M tokens;EU-Hosted
+claude-haiku-4-5*;;;;
+claude-opus-4-6;Google;$5.00M tokens;$25.00M tokens;EU-Hosted
+claude-opus-4-6*;;;;
+claude-sonnet-4-6;Google;$3.00M tokens;$15.00M tokens;EU-Hosted
+claude-sonnet-4-6*;;;;
+gemini-2.5-flash;Google;$0.30M tokens;$2.50M tokens;EU-Hosted
+gemini-2.5-pro;Google;$1.25M tokens;$10.00M tokens;EU-Hosted
+gemini-3-pro-preview;Google;$2.00M tokens;$12.00M tokens;EU-Hosted
+gemini-3-flash-preview;Google;$0.50M tokens;$3.00M tokens;EU-Hosted

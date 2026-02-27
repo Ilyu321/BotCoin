@@ -1,0 +1,73 @@
+services:
+  botcoin:
+    build: .
+    container_name: botcoin_advisor
+    restart: unless-stopped
+    
+    # SECURITY: Container Härtung
+    read_only: true               # Schreibschutz für das Dateisystem
+    user: "1000:1000"            # Non-Root User (ID ggf. anpassen)
+    cap_drop: [ALL]              # Entzug aller Kernel-Privilegien
+    security_opt:
+      - no-new-privileges:true
+    
+    volumes:
+      - ./src:/app/src:ro        # Code: Read-Only
+      - ./secrets:/app/secrets:ro # Secrets: Read-Only
+      # Temporäre Verzeichnisse als tmpfs (in-memory) für bessere Security
+    
+    tmpfs:
+      - /tmp:size=100M,mode=1777
+      - /var/tmp:size=50M,mode=1777
+      - /tmp_docker:size=200M,mode=755
+    
+    environment:
+      - TZ=Europe/Berlin
+      - PYTHONUNBUFFERED=1
+
+      # ── KI-Modell Konfiguration ──────────────────────────────────────────────
+      - AI_BASE_URL=https://mein-ai-hub.de/v1
+      # Analyst: Maximale Qualität für tägliche Deep-Analysis (Web-Search + Reasoning)
+      - AI_MODEL_NAME=claude-opus-4-6
+      # Guardian: Stark genug für Validierung, günstiger als Opus
+      - AI_MODEL_GUARDIAN=claude-sonnet-4-6
+      # Budget-Alternative: Analyst=gemini-2.5-flash, Guardian=gpt-4.1-nano (~$0.13/Monat)
+
+      # ── Telegram Security (Personal Use - Single User) ───────────────────────
+      # WICHTIG: Deine persönliche Telegram User-ID hier eintragen.
+      # Diese ID ist fest und kann nur durch Ändern dieser docker-compose.yml
+      # und Neustart des Containers geändert werden. BotCoin ist für Personal Use
+      # als Single-User-App konzipiert, daher gibt es keinen /set_admin Befehl mehr.
+      - ALLOWED_TELEGRAM_USER_ID=123456789  # <--- DEINE ID EINTRAGEN
+
+      # ── Analyse-Zeitplanung ──────────────────────────────────────────────────
+      # KI-Deep-Analysis: 1x täglich, NUR bei Signal (HOLD → keine Nachricht)
+      - SCHEDULE_INTERVAL_HOURS=24
+      # Analyse-Fenster: Nur in dieser Zeit laufen KI-Analyse und Nachrichten (Stunde 0-23)
+      - ANALYSIS_START_HOUR=8   # z.B. 8 = ab 08:00
+      - ANALYSIS_END_HOUR=22    # z.B. 22 = bis 22:00 (keine Nachrichten nachts)
+
+      # ── Wöchentliche Management-Summary ─────────────────────────────────────
+      # Jeden Sonntag um 10:00 Uhr — IMMER gesendet, auch bei HOLD
+      # Kein Guardian-Call → ~50% günstiger als tägliche Analyse
+      # Wochentag: 0=Mo, 1=Di, 2=Mi, 3=Do, 4=Fr, 5=Sa, 6=So
+      - WEEKLY_SUMMARY_DAY=6    # 6 = Sonntag
+      - WEEKLY_SUMMARY_HOUR=10  # 10:00 Uhr
+
+      # ── Preis-Alerts (kostenlos, kein LLM) ──────────────────────────────────
+      # Läuft alle 30 Min und sendet sofort Alert bei Schwellenwert-Überschreitung
+      - PRICE_CHECK_INTERVAL_MINUTES=30
+      - PRICE_ALERT_THRESHOLD_UP=0.20    # +20% → sofort Alert (ohne KI-Call)
+      - PRICE_ALERT_THRESHOLD_DOWN=0.15  # -15% → sofort Alert (ohne KI-Call)
+    
+    # Health-Check für Monitoring
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # Port für Health-Check (optional, für externen Zugriff)
+    ports:
+      - "8080:8080"
