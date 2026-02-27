@@ -199,6 +199,8 @@ class MarketData:
             return portfolio
         except Exception as e:
             logger.error(f"Fehler beim Abrufen des Portfolios: {e}")
+            # Fallback: Leeres Portfolio zurückgeben, aber mit Warnung
+            logger.warning("Fehler beim Abrufen des Portfolios - verwende leeres Portfolio")
             return {}
 
     def get_portfolio_with_prices(self) -> Tuple[Dict[str, float], Dict[str, Optional[float]]]:
@@ -256,6 +258,11 @@ class MarketData:
         # Basis-Currency (EUR) direkt aus Portfolio übernehmen
         if BASE_CURRENCY in portfolio:
             prices[BASE_CURRENCY] = portfolio[BASE_CURRENCY]
+
+        # Validierung: Alle Portfolio-Coins sollten einen Preis haben
+        missing_prices = [coin for coin in portfolio if coin != BASE_CURRENCY and prices.get(coin) is None]
+        if missing_prices:
+            logger.warning(f"Keine Preise für folgende Coins verfügbar: {missing_prices}")
 
         return portfolio, prices
 
@@ -446,7 +453,9 @@ class MarketData:
 
         except Exception as e:
             logger.error(f"Fehler beim Berechnen der Indikatoren für {symbol}: {e}")
-            return None
+            # Fallback: Leere Indikatoren zurückgeben
+            logger.warning(f"Fehler bei Indikatoren für {symbol} - verwende leere Indikatoren")
+            return {}
 
     def get_portfolio_indicators(self, portfolio_coins: Dict[str, float]) -> Dict[str, Optional[Dict]]:
         """Berechnet Indikatoren für alle Coins im Portfolio.
