@@ -28,7 +28,7 @@ class IntelligentCache:
     automatischer Speicherbereinigung.
     """
 
-    def __init__(self, cache_dir: str = "/tmp_docker/cache"):
+    def __init__(self, cache_dir: str = "/tmp/cache"):
         """Initialisiert den IntelligentCache.
         
         Args:

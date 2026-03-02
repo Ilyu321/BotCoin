@@ -19,7 +19,7 @@ from retry import retry
 logger = logging.getLogger(__name__)
 
 # Intelligenter Cache (Singleton auf Modul-Ebene)
-cache_manager = IntelligentCache(cache_dir="/tmp_docker/cache")
+cache_manager = IntelligentCache(cache_dir="/tmp/cache")
 
 
 class MarketData:
