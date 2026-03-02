@@ -5,7 +5,7 @@ import logging
 import ccxt
 import pandas as pd
 import numpy as np
-import pandas_ta as ta
+import pandas_ta_classic as ta
 from typing import Optional, Dict, List, Tuple, Any
 from config import (
     BASE_CURRENCY, KRAKEN_API_PATH, CCXT_TIMEOUT_SECONDS,
