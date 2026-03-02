@@ -186,7 +186,7 @@ SlopCoin/
 ├── README.md                   # Diese Dokumentation
 ├── ANLEITUNG.md                # Schritt-für-Schritt Installationsanleitung
 ├── SECURITY.md                 # Sicherheits-Dokumentation
-├── secrets/                    # 🔒 Sicherheits-Zone (chmod 600)
+├── secrets/                    # 🔒 Sicherheits-Zone (Host: chmod 755 Verzeichnis, 644 Dateien)
 │   ├── ai_hub_key.txt         # AI Hub API Key
 │   ├── kraken_api.json        # Kraken API Key & Secret
 │   └── telegram_token.txt     # Telegram Bot Token
@@ -367,7 +367,7 @@ Eine vollständige Schritt-für-Schritt-Installationsanleitung mit allen Details
 ### Security-Checkliste
 
 - [ ] **Kraken API Key**: Nur Read-Only (keine Trade/Withdraw-Rechte)
-- [ ] **Secrets**: `chmod 600` auf alle Dateien in `secrets/`
+- [ ] **Secrets**: `chmod 755 secrets` und `chmod 644 secrets/*` (oder äquivalente Rechte auf deinem System)
 - [ ] **Telegram User-ID**: Nur deine eigene ID in `ALLOWED_TELEGRAM_USER_ID`
 - [ ] **Docker Security**: Read-Only, Non-Root, Capabilities Dropped
 - [ ] **Network**: (Optional) Firewall-Regeln für ausgehenden Traffic

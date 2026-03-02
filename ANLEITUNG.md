@@ -142,7 +142,10 @@ Kopiere alle Dateien aus diesem Projekt in den neu erstellten Ordner:
 ```bash
 # Sicherstellen, dass der Docker-Container lesen kann
 chmod -R 755 /volume1/docker/SlopCoin/
-chmod -R 700 /volume1/docker/SlopCoin/secrets
+
+# Secrets-Verzeichnis und Dateien restriktiv, aber für den Container lesbar
+chmod 755 /volume1/docker/SlopCoin/secrets
+chmod 644 /volume1/docker/SlopCoin/secrets/*
 ```
 
 ---
@@ -203,13 +206,19 @@ EOF
 echo "dein-ai-hub-api-key" > ai_hub_key.txt
 ```
 
-### 2.5 Rechte sperren (kritisch!)
+### 2.5 Rechte setzen für Secrets (kritisch!)
 
 ```bash
-chmod 600 /volume1/docker/SlopCoin/secrets/*
+# Auf Synology kann chown eingeschränkt sein, daher pragmatische Variante:
+chmod 755 /volume1/docker/SlopCoin/secrets
+chmod 644 /volume1/docker/SlopCoin/secrets/*
 ```
 
-**Warum?** Docker und der Bot laufen als Non-Root und benötigen Leserechte. `chmod 600` stellt sicher, dass nur der Besitzer lesen/schreiben kann.
+**Warum?**
+- Der Container läuft als Non-Root-User (UID 1000) und benötigt Leserechte auf die Dateien.
+- `755` auf dem Ordner erlaubt Lesen/Betreten, aber nur der Besitzer darf schreiben.
+- `644` auf den Dateien erlaubt Lesen für den Container, Schreiben nur für den Besitzer.
+- In Kombination mit `read_only: true` und `cap_drop: [ALL]` im Container bleibt das Setup sicher.
 
 ---
 
@@ -335,7 +344,9 @@ Die `docker-compose.yml` sollte folgende Volumes und tmpfs-Einträge haben:
 ```yaml
 volumes:
   - ./src:/app/src:ro         # Code: Read-Only
-  - ./secrets:/app/secrets:ro # Secrets: Read-Only
+  - ./secrets/ai_hub_key.txt:/run/secrets/ai_hub_key.txt:ro       # AI Hub Key als Datei-"Secret"
+  - ./secrets/kraken_api.json:/run/secrets/kraken_api.json:ro     # Kraken API-Creds als Datei-"Secret"
+  - ./secrets/telegram_token.txt:/run/secrets/telegram_token.txt:ro # Telegram Bot Token als Datei-"Secret"
 
 tmpfs:
   - /tmp:size=100M,mode=1777
