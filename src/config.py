@@ -37,6 +37,7 @@ PRICE_ALERT_THRESHOLD_DOWN = float(os.getenv("PRICE_ALERT_THRESHOLD_DOWN", 0.15)
 # ── Dateipfade ────────────────────────────────────────────────────────────────
 PAUSE_STATE_PATH = "/tmp_docker/SlopCoin_paused.json"
 BASELINE_PATH = os.getenv("BASELINE_PATH", "/tmp_docker/portfolio_baseline.json")
+PERFORMANCE_HISTORY_PATH = os.getenv("PERFORMANCE_HISTORY_PATH", "/tmp_docker/performance_history.json")
 
 # ── Timeout-Konfiguration ─────────────────────────────────────────────────────
 API_TIMEOUT = int(os.getenv("API_TIMEOUT", 30))

@@ -12,6 +12,13 @@ class RiskAnalyzer:
         if history_path is None:
             history_path = PERFORMANCE_HISTORY_PATH
         self.history_path = history_path
+        logger.info(
+            "RiskAnalyzer initialisiert",
+            extra={
+                "history_path": self.history_path,
+                "history_path_source": "config" if history_path is None else "explicit_argument",
+            },
+        )
 
     def _load_history(self):
         """Lädt Performance-Historie"""
