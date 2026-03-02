@@ -1,7 +1,7 @@
 FROM python:3.12-slim-bookworm
 
 # Security: User anlegen
-RUN groupadd -r botcoin && useradd -r -g botcoin botcoin
+RUN groupadd -r SlopCoin && useradd -r -g SlopCoin SlopCoin
 
 WORKDIR /app
 
@@ -13,9 +13,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY src/ ./src/
 
 # Temp Verzeichnis vorbereiten
-RUN mkdir -p /tmp_docker && chown -R botcoin:botcoin /tmp_docker
+RUN mkdir -p /tmp_docker && chown -R SlopCoin:SlopCoin /tmp_docker
 
-USER botcoin
+USER SlopCoin
 
 # Start Command
 CMD ["python", "src/main.py"]

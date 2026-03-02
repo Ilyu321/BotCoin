@@ -1,4 +1,4 @@
-# 🛡️ BotCoin v1.0 — Enterprise Portfolio Advisor
+# 🛡️ SlopCoin v1.0 — Enterprise Portfolio Advisor
 
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue)](https://www.docker.com/)
 [![Python](https://img.shields.io/badge/Python-3.12-yellow)](https://www.python.org/)
@@ -10,7 +10,7 @@
 
 ## 📋 Übersicht
 
-**BotCoin v1.0** ist ein professioneller, KI-gestützter Krypto-Portfolio-Advisor für Kraken. Der Bot überwacht dein Portfolio rund um die Uhr, analysiert technische Indikatoren und Risiken mit modernster KI-Technologie, und sendet dir **nur bei echtem Handlungsbedarf** Empfehlungen per Telegram – vollständig konfigurierbar innerhalb deines Analyse-Fensters.
+**SlopCoin v1.0** ist ein professioneller, KI-gestützter Krypto-Portfolio-Advisor für Kraken. Der Bot überwacht dein Portfolio rund um die Uhr, analysiert technische Indikatoren und Risiken mit modernster KI-Technologie, und sendet dir **nur bei echtem Handlungsbedarf** Empfehlungen per Telegram – vollständig konfigurierbar innerhalb deines Analyse-Fensters.
 
 ### 🎯 Kernprinzipien
 
@@ -149,9 +149,9 @@
 ```mermaid
 graph TB
     A[Telegram User] --> B[Telegram Bot]
-    B --> C[BotCoin Container]
+    B --> C[SlopCoin Container]
     
-    subgraph "BotCoin Container (Docker Hardened)"
+    subgraph "SlopCoin Container (Docker Hardened)"
         C --> D[Main Orchestrator]
         D --> E[MarketData]
         D --> F[PortfolioTracker]
@@ -179,7 +179,7 @@ graph TB
 ### 📂 Verzeichnis-Struktur
 
 ```
-botcoin/
+SlopCoin/
 ├── docker-compose.yml          # Deployment Konfiguration
 ├── Dockerfile                  # Container Image
 ├── requirements.txt            # Python Abhängigkeiten
@@ -232,12 +232,12 @@ botcoin/
 1. **Projekt klonen oder entpacken**
    ```bash
    cd /volume1/docker/
-   # Projektdateien nach botcoin/ kopieren
+   # Projektdateien nach SlopCoin/ kopieren
    ```
 
-2. **Secrets anlegen** (`/volume1/docker/botcoin/secrets/`)
+2. **Secrets anlegen** (`/volume1/docker/SlopCoin/secrets/`)
    ```bash
-   cd /volume1/docker/botcoin/secrets
+   cd /volume1/docker/SlopCoin/secrets
    
    # AI Hub Key
    echo "dein-ai-hub-api-key" > ai_hub_key.txt
@@ -266,16 +266,16 @@ botcoin/
 
 4. **Container starten**
    ```bash
-   cd /volume1/docker/botcoin
+   cd /volume1/docker/SlopCoin
    docker-compose up -d --build
    ```
 
 5. **Logs prüfen**
    ```bash
-   docker logs -f botcoin_advisor
+   docker logs -f SlopCoin_advisor
    ```
 
-✅ **Fertig!** BotCoin erstellt beim ersten Start automatisch die Baseline.
+✅ **Fertig!** SlopCoin erstellt beim ersten Start automatisch die Baseline.
 
 ---
 
@@ -346,7 +346,7 @@ Eine vollständige Schritt-für-Schritt-Installationsanleitung mit allen Details
 
 ### Inhalt der ANLEITUNG.md:
 
-1. **Was macht BotCoin?** – Funktionsübersicht
+1. **Was macht SlopCoin?** – Funktionsübersicht
 2. **Voraussetzungen** – Was du brauchst
 3. **Installation auf Synology NAS** – Schritt-für-Schritt
 4. **Secrets konfigurieren** – API-Keys eintragen
@@ -376,7 +376,7 @@ Eine vollständige Schritt-für-Schritt-Installationsanleitung mit allen Details
 ### Best Practices
 
 1. **API Keys rotieren**: Alle 90 Tage neue Keys generieren
-2. **Monitoring**: Regelmäßig Logs prüfen (`docker logs -f botcoin_advisor`)
+2. **Monitoring**: Regelmäßig Logs prüfen (`docker logs -f SlopCoin_advisor`)
 3. **Backup**: `/tmp_docker/` sichern (enthält Baseline und Historie)
 4. **Updates**: Bei neuen Versionen Container neu bauen (`docker-compose up -d --build`)
 5. **Resource Limits**: (Optional) CPU/Memory-Limits in `docker-compose.yml` setzen
@@ -399,13 +399,13 @@ Eine vollständige Schritt-für-Schritt-Installationsanleitung mit allen Details
 
 ```bash
 # Live-Logs
-docker logs -f botcoin_advisor
+docker logs -f SlopCoin_advisor
 
 # Letzte 100 Zeilen
-docker logs --tail 100 botcoin_advisor
+docker logs --tail 100 SlopCoin_advisor
 
 # Logs mit Timestamp
-docker logs -f --timestamps botcoin_advisor
+docker logs -f --timestamps SlopCoin_advisor
 ```
 
 ### Container Management
@@ -545,7 +545,7 @@ Der Bot sendet beim Start automatisch eine Baseline-Erstellungsnachricht. Danach
 
 ## 🎯 Fazit
 
-BotCoin v1.0 ist ein produktionsreifer, KI-gestützter Krypto-Portfolio-Advisor mit Fokus auf:
+SlopCoin v1.0 ist ein produktionsreifer, KI-gestützter Krypto-Portfolio-Advisor mit Fokus auf:
 
 - **Sicherheit:** Docker-gehärtet, keine hartcodierten Secrets, vollständige Input-Validierung
 - **Performance:** Intelligentes Caching, Batch-API-Aufrufe, adaptive TTL

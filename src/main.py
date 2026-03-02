@@ -52,7 +52,7 @@ try:
         cache_logger_on_first_use=True,
     )
     logger = structlog.get_logger()
-    logger = logger.bind(component='botcoin')
+    logger = logger.bind(component='SlopCoin')
     logger.info("Structured logging initialized")
 except ImportError:
     # Fallback auf Standard-Logging
@@ -60,7 +60,7 @@ except ImportError:
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         level=logging.INFO
     )
-    logger = logging.getLogger("BotCoin")
+    logger = logging.getLogger("SlopCoin")
     logger.info("Using standard logging (structlog not available)")
 
 # Globals (werden in main() gesetzt)
@@ -165,8 +165,8 @@ class AlertManager:
                     import asyncio
                     asyncio.create_task(bot.send_message(
                         chat_id=ALLOWED_TELEGRAM_USER_ID,
-                        text=f"⚠️ *BotCoin Eskalation*\n\n"
-                             f"BotCoin hat {self.consecutive_errors} aufeinanderfolgende Fehler.\n"
+                        text=f"⚠️ *SlopCoin Eskalation*\n\n"
+                             f"SlopCoin hat {self.consecutive_errors} aufeinanderfolgende Fehler.\n"
                              f"Bitte überprüfe die Logs.",
                         parse_mode='Markdown'
                     ))
@@ -189,7 +189,7 @@ class HealthHandler(BaseHTTPRequestHandler):
                     'timestamp': time.time(),
                     'last_cycle': last_cycle,
                     'uptime': uptime,
-                    'container': 'botcoin_advisor',
+                    'container': 'SlopCoin_advisor',
                     'portfolio_size': len(portfolio) if 'portfolio' in globals() else 0
                 }
                 self.send_response(200)
@@ -207,10 +207,10 @@ class HealthHandler(BaseHTTPRequestHandler):
                 if 'brain' in globals() and hasattr(brain, 'cost_tracker'):
                     total_cost = brain.cost_tracker.total_cost
                     total_tokens = brain.cost_tracker.total_tokens
-                    metrics.append(f"# TYPE botcoin_total_cost gauge")
-                    metrics.append(f"botcoin_total_cost {total_cost}")
-                    metrics.append(f"# TYPE botcoin_total_tokens counter")
-                    metrics.append(f"botcoin_total_tokens {total_tokens}")
+                    metrics.append(f"# TYPE SlopCoin_total_cost gauge")
+                    metrics.append(f"SlopCoin_total_cost {total_cost}")
+                    metrics.append(f"# TYPE SlopCoin_total_tokens counter")
+                    metrics.append(f"SlopCoin_total_tokens {total_tokens}")
 
                 metrics_text = "\n".join(metrics)
                 self.send_response(200)
@@ -277,7 +277,7 @@ def get_uptime() -> Optional[float]:
 async def cmd_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Befehl: /help"""
     text = (
-        "*BotCoin v1.0 – Befehle*\n\n"
+        "*SlopCoin v1.0 – Befehle*\n\n"
         "/status – Aktuellen Portfolio-Status abrufen\n"
         "/dashboard – Visuelle Portfolio-Allokation\n"
         "/heatmap – Korrelationsmatrix\n"
@@ -719,7 +719,7 @@ async def run_weekly_summary(context: ContextTypes.DEFAULT_TYPE) -> None:
                 await context.bot.send_message(
                     chat_id=ADMIN_ID,
                     text=(
-                        f"*BotCoin – Baseline erstellt*\n\n"
+                        f"*SlopCoin – Baseline erstellt*\n\n"
                         f"Portfolio-Wert: {total:.2f} EUR\n"
                         f"Wöchentliche Summary startet nächsten Sonntag."
                     ),
@@ -829,7 +829,7 @@ async def run_cycle(context: ContextTypes.DEFAULT_TYPE) -> None:
             try:
                 await context.bot.send_message(
                     chat_id=ADMIN_ID,
-                    text=f"*BotCoin v0.1.0 gestartet*\n\nBaseline erstellt: Portfolio-Wert {total:.2f} EUR\n\nPerformance-Tracking startet beim nächsten Lauf.",
+                    text=f"*SlopCoin v0.1.0 gestartet*\n\nBaseline erstellt: Portfolio-Wert {total:.2f} EUR\n\nPerformance-Tracking startet beim nächsten Lauf.",
                     parse_mode='Markdown'
                 )
             except Exception as e:
@@ -888,7 +888,7 @@ async def run_cycle(context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 def main() -> None:
-    """Haupt-Einstiegspunkt von BotCoin.
+    """Haupt-Einstiegspunkt von SlopCoin.
     
     Initialisiert alle Komponenten, validiert Konfiguration und startet den Bot.
     """
@@ -981,7 +981,7 @@ def main() -> None:
     else:
         logger.warning("JobQueue nicht verfügbar – keine automatische Analyse")
 
-    logger.info("BotCoin v0.1.0 startet – Telegram-Befehle: /status, /dashboard, /heatmap, /what_if, /next, /set_interval, /pause, /resume, /help")
+    logger.info("SlopCoin v0.1.0 startet – Telegram-Befehle: /status, /dashboard, /heatmap, /what_if, /next, /set_interval, /pause, /resume, /help")
     app.run_polling(allowed_updates=Update.ALL_TYPES)
 
 

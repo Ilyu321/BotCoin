@@ -1,7 +1,7 @@
 services:
-  botcoin:
+  SlopCoin:
     build: .
-    container_name: botcoin_advisor
+    container_name: SlopCoin_advisor
     restart: unless-stopped
     
     # SECURITY: Container Härtung
@@ -36,7 +36,7 @@ services:
       # ── Telegram Security (Personal Use - Single User) ───────────────────────
       # WICHTIG: Deine persönliche Telegram User-ID hier eintragen.
       # Diese ID ist fest und kann nur durch Ändern dieser docker-compose.yml
-      # und Neustart des Containers geändert werden. BotCoin ist für Personal Use
+      # und Neustart des Containers geändert werden. SlopCoin ist für Personal Use
       # als Single-User-App konzipiert, daher gibt es keinen /set_admin Befehl mehr.
       - ALLOWED_TELEGRAM_USER_ID=123456789  # <--- DEINE ID EINTRAGEN
 

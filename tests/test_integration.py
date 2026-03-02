@@ -1,7 +1,7 @@
 import pytest
 import responses
 import json
-from src.main import BotCoin
+from src.main import SlopCoin
 from src.data_fetcher import MarketData
 
 
@@ -236,14 +236,14 @@ def test_health_check_endpoint():
         assert 'status' in health_data
         assert health_data['status'] == 'ok'
         assert 'container' in health_data
-        assert health_data['container'] == 'botcoin_advisor'
+        assert health_data['container'] == 'SlopCoin_advisor'
 
         # Metrics aufrufen
         metrics_response = requests.get('http://localhost:8081/metrics')
         assert metrics_response.status_code == 200
         metrics_data = metrics_response.text
-        assert 'botcoin_total_cost' in metrics_data
-        assert 'botcoin_total_tokens' in metrics_data
+        assert 'SlopCoin_total_cost' in metrics_data
+        assert 'SlopCoin_total_tokens' in metrics_data
 
         print("✅ Health-Check Endpunkt erfolgreich getestet")
 
@@ -308,10 +308,10 @@ def test_cost_tracker():
 
 def test_main_functionality():
     """Testet die Hauptfunktionalität"""
-    from src.main import BotCoin
+    from src.main import SlopCoin
 
-    # BotCoin initialisieren
-    bot = BotCoin()
+    # SlopCoin initialisieren
+    bot = SlopCoin()
 
     # Telegram Commands testen (Mock)
     # Dashboard

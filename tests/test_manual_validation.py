@@ -170,7 +170,7 @@ def test_removed_features():
 def run_all_tests():
     """Führt alle manuellen Tests aus."""
     print("=" * 60)
-    print("BotCoin Phase 3 & 4 Validierungstests")
+    print("SlopCoin Phase 3 & 4 Validierungstests")
     print("=" * 60 + "\n")
     
     try:

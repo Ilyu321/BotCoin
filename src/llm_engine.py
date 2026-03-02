@@ -89,7 +89,7 @@ class LLMEngine:
         self.cache_hits = 0
         self.cache_misses = 0
 
-        logger.info(f"BotCoin connected to {base_url} | Analyst: {model_name} | Guardian: {guardian_model_name}")
+        logger.info(f"SlopCoin connected to {base_url} | Analyst: {model_name} | Guardian: {guardian_model_name}")
 
     def _clean_json(self, text):
         """Reinigt LLM Output von Markdown-Artefakten"""

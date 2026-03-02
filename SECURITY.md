@@ -1,4 +1,4 @@
-# 🔐 BotCoin v1.0 — Sicherheits-Checkliste & Best Practices
+# 🔐 SlopCoin v1.0 — Sicherheits-Checkliste & Best Practices
 
 ---
 
@@ -16,7 +16,7 @@
 
 ### Regelmäßige Checks (monatlich)
 
-- [ ] **Logs prüfen** auf Fehler (`docker logs botcoin_advisor`)
+- [ ] **Logs prüfen** auf Fehler (`docker logs SlopCoin_advisor`)
 - [ ] **API-Kosten** im Blick behalten (Provider-Dashboard)
 - [ ] **Secrets-Rotation** planen (alle 90 Tage neue Keys)
 - [ ] **Container-Updates** einspielen (wenn neue Version verfügbar)
@@ -28,12 +28,12 @@
 
 ### Container-Konfiguration
 
-BotCoin läuft mit maximalen Sicherheitseinschränkungen:
+SlopCoin läuft mit maximalen Sicherheitseinschränkungen:
 
 ```yaml
 # docker-compose.yml
 services:
-  botcoin:
+  SlopCoin:
     read_only: true               # Schreibschutz für Dateisystem
     user: "1000:1000"            # Non-Root User (UID 1000)
     cap_drop: [ALL]              # Alle Kernel-Privilegien entziehen
@@ -54,9 +54,9 @@ services:
 
 ```bash
 # Host-Seite
-chmod 755 /volume1/docker/botcoin/      # Lesen+Ausführen für alle
-chmod 700 /volume1/docker/botcoin/secrets/  # Nur Besitzer
-chmod 600 /volume1/docker/botcoin/secrets/* # Nur Besitzer lesen
+chmod 755 /volume1/docker/SlopCoin/      # Lesen+Ausführen für alle
+chmod 700 /volume1/docker/SlopCoin/secrets/  # Nur Besitzer
+chmod 600 /volume1/docker/SlopCoin/secrets/* # Nur Besitzer lesen
 
 # Im Container
 /tmp_docker/ → beschreibbar (für Cache, Baseline, Historie)
@@ -99,12 +99,12 @@ Sensible Daten, die **niemals** in Git oder öffentlichen Repositories landen d�
 
 4. **Backup verschlüsseln**:
    ```bash
-   tar czf botcoin-secrets-backup.tar.gz secrets/
-   gpg --encrypt --recipient "deine@email.de" botcoin-secrets-backup.tar.gz
+   tar czf SlopCoin-secrets-backup.tar.gz secrets/
+   gpg --encrypt --recipient "deine@email.de" SlopCoin-secrets-backup.tar.gz
    ```
 
 5. **Environment-Variablen vs. Dateien**:
-   - BotCoin nutzt Dateien (`/app/secrets/...`) statt Environment-Variablen
+   - SlopCoin nutzt Dateien (`/app/secrets/...`) statt Environment-Variablen
    - Vorteil: Einfacheres Mounting in Docker, bessere Kontrolle
    - Nachteil: Dateien müssen gesichert werden
 
@@ -128,7 +128,7 @@ Sensible Daten, die **niemals** in Git oder öffentlichen Repositories landen d�
 
 ### Ausgehende Verbindungen
 
-BotCoin benötigt ausgehende Verbindungen zu:
+SlopCoin benötigt ausgehende Verbindungen zu:
 
 | Ziel | Port | Zweck |
 |------|------|-------|
@@ -160,11 +160,11 @@ Standard: Bridge-Netzwerk (isoliert pro Container).
 ```yaml
 # RICHTIG: Keine ports Sektion (nur interne Kommunikation)
 services:
-  botcoin:
+  SlopCoin:
     # ... keine ports!
 ```
 
-BotCoin ist ein **ausgehender** Dienst, benötigt **keine** eingehenden Ports!
+SlopCoin ist ein **ausgehender** Dienst, benötigt **keine** eingehenden Ports!
 
 ---
 
@@ -233,7 +233,7 @@ logging.basicConfig(
 - Telegram User-IDs (außer zur Debugging-Bestätigung)
 - Portfolio-Werte in Production (nur in Development)
 
-BotCoin loggt **keine** Secrets.
+SlopCoin loggt **keine** Secrets.
 
 ### Log-Rotation
 
@@ -260,13 +260,13 @@ Docker loggt auf stdout/stderr. Log-Rotation über Docker-Daemon:
 
 1. **Isolierung**:
    ```bash
-   docker stop botcoin_advisor
+   docker stop SlopCoin_advisor
    ```
 
 2. **Analyse**:
    ```bash
-   docker logs --since 1h botcoin_advisor > incident_logs.txt
-   docker exec botcoin_advisor ps aux > incident_processes.txt
+   docker logs --since 1h SlopCoin_advisor > incident_logs.txt
+   docker exec SlopCoin_advisor ps aux > incident_processes.txt
    ```
 
 3. **Key-Rotation**:
@@ -292,7 +292,7 @@ Docker loggt auf stdout/stderr. Log-Rotation über Docker-Daemon:
    ```
 3. **Secrets prüfen** (wurden gestohlen? → alle rotieren)
 4. **NAS neu aufsetzen** (falls nötig)
-5. **BotCoin neu installieren** (mit neuen Secrets)
+5. **SlopCoin neu installieren** (mit neuen Secrets)
 
 ---
 
@@ -300,7 +300,7 @@ Docker loggt auf stdout/stderr. Log-Rotation über Docker-Daemon:
 
 ### Datenschutz (DSGVO)
 
-BotCoin speichert:
+SlopCoin speichert:
 - **Portfolio-Daten** (Balances, Preise) → Persönliche Daten
 - **Performance-Historie** → Persönliche Daten
 - **Keine personenbezogenen Daten** von Dritten (nur deine eigenen Kraken-Daten)
@@ -313,7 +313,7 @@ BotCoin speichert:
 
 ### Nutzungsbedingungen
 
-BotCoin ist ein **privates Projekt**:
+SlopCoin ist ein **privates Projekt**:
 - Keine Garantie für Genauigkeit
 - Keine Haftung für finanzielle Verluste
 - Nutzung auf eigene Verantwortung
@@ -328,7 +328,7 @@ BotCoin ist ein **privates Projekt**:
 **Monatlich:**
 - Docker-Image auf Sicherheitslücken scannen:
   ```bash
-  docker scan botcoin_advisor
+  docker scan SlopCoin_advisor
   ```
 - Abhängigkeiten aktualisieren (`requirements.txt` → neueste Patches)
 - Logs auf ungewöhnliche Aktivitäten prüfen
@@ -337,7 +337,7 @@ BotCoin ist ein **privates Projekt**:
 - API Keys rotieren
 - Docker-Compose und Dockerfile auf Sicherheit prüfen
 - Backup-Test durchführen (Restore testen)
-- Secrets-Berechtigungen prüfen (`find /volume1/docker/botcoin/secrets -type f -exec ls -l {} \;`)
+- Secrets-Berechtigungen prüfen (`find /volume1/docker/SlopCoin/secrets -type f -exec ls -l {} \;`)
 
 **Jährlich:**
 - Komplette Security Review (Code, Config, Deployment)
@@ -352,10 +352,10 @@ BotCoin ist ein **privates Projekt**:
 
 ```bash
 # Trivy (vulnerability scanner)
-trivy image botcoin_advisor
+trivy image SlopCoin_advisor
 
 # Docker Scout
-docker scout cves botcoin_advisor
+docker scout cves SlopCoin_advisor
 ```
 
 ### Host Security (Synology)
@@ -411,6 +411,6 @@ Vor Inbetriebnahme:
 
 <div align="center">
 
-**BotCoin v1.0 — Security by Design**
+**SlopCoin v1.0 — Security by Design**
 
 </div>

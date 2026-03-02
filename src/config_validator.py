@@ -113,7 +113,7 @@ class ConfigValidator:
             AI_BASE_URL
         )
 
-        print("🔍 BotCoin Configuration Validation Report")
+        print("🔍 SlopCoin Configuration Validation Report")
         print("=" * 50)
 
         # AI Hub validation

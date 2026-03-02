@@ -1,4 +1,4 @@
-# BotCoin v0.1.0 - Portfolio-Advisor
+# SlopCoin v0.1.0 - Portfolio-Advisor
 import os
 
 # ── KI / LLM ────────────────────────────────────────────────────────────────
@@ -35,7 +35,7 @@ PRICE_ALERT_THRESHOLD_UP = float(os.getenv("PRICE_ALERT_THRESHOLD_UP", 0.20))   
 PRICE_ALERT_THRESHOLD_DOWN = float(os.getenv("PRICE_ALERT_THRESHOLD_DOWN", 0.15)) # -15% → sofort Alert
 
 # ── Dateipfade ────────────────────────────────────────────────────────────────
-PAUSE_STATE_PATH = "/tmp_docker/botcoin_paused.json"
+PAUSE_STATE_PATH = "/tmp_docker/SlopCoin_paused.json"
 BASELINE_PATH = os.getenv("BASELINE_PATH", "/tmp_docker/portfolio_baseline.json")
 
 # ── Timeout-Konfiguration ─────────────────────────────────────────────────────

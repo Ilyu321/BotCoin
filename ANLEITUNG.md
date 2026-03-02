@@ -1,4 +1,4 @@
-# 🚀 BotCoin v1.0 — Komplette Installationsanleitung
+# 🚀 SlopCoin v1.0 — Komplette Installationsanleitung
 
 **Von 0 bis Live in unter 30 Minuten**
 
@@ -9,7 +9,7 @@
 
 ## 📖 Inhaltsverzeichnis
 
-1. [Was macht BotCoin?](#was-macht-botcoin)
+1. [Was macht SlopCoin?](#was-macht-SlopCoin)
 2. [Voraussetzungen](#voraussetzungen)
 3. [Übersicht: Der Installationsprozess](#übersicht-der-installationsprozess)
 4. [Schritt 1: Projektordner vorbereiten](#schritt-1-projektordner-vorbereiten)
@@ -29,9 +29,9 @@
 
 ---
 
-## Was macht BotCoin?
+## Was macht SlopCoin?
 
-**BotCoin v1.0** ist dein persönlicher, KI-gestützter Krypto-Portfolio-Advisor für Kraken. Er überwacht dein Portfolio 24/7 und sendet dir **nur dann** Empfehlungen per Telegram, wenn wirklich Handlungsbedarf besteht.
+**SlopCoin v1.0** ist dein persönlicher, KI-gestützter Krypto-Portfolio-Advisor für Kraken. Er überwacht dein Portfolio 24/7 und sendet dir **nur dann** Empfehlungen per Telegram, wenn wirklich Handlungsbedarf besteht.
 
 ### Die 4 Kernfunktionen
 
@@ -40,9 +40,9 @@
 3. **Telegram-Integration**: Sofortige Benachrichtigungen und Steuerung per Chat
 4. **Zeitmanagement**: Konfigurierbares Analyse-Fenster (keine Nachrichten nachts)
 
-### Was BotCoin NICHT tut
+### Was SlopCoin NICHT tut
 
-- ❌ **Kein automatischer Handel**: BotCoin kann **nur lesen**, nicht kaufen oder verkaufen
+- ❌ **Kein automatischer Handel**: SlopCoin kann **nur lesen**, nicht kaufen oder verkaufen
 - ❌ **Keine Trade-Rechte**: Dein Kraken API Key sollte nur Read-Only haben
 - ❌ **Kein Spam**: Der Bot meldet sich **nur** bei relevanten Signalen
 - ❌ **Keine Nachrichten nachts**: Außerhalb deines Analyse-Fensters ist Ruhe
@@ -99,10 +99,10 @@ graph LR
    ```bash
    cd /volume1/docker/
    ```
-3. **BotCoin-Ordner erstellen**:
+3. **SlopCoin-Ordner erstellen**:
    ```bash
-   mkdir botcoin
-   cd botcoin
+   mkdir SlopCoin
+   cd SlopCoin
    ```
 4. **Verzeichnisstruktur anlegen**:
    ```bash
@@ -116,7 +116,7 @@ graph LR
 Kopiere alle Dateien aus diesem Projekt in den neu erstellten Ordner:
 
 ```
-/volume1/docker/botcoin/
+/volume1/docker/SlopCoin/
 ├── docker-compose.yml
 ├── Dockerfile
 ├── requirements.txt
@@ -141,8 +141,8 @@ Kopiere alle Dateien aus diesem Projekt in den neu erstellten Ordner:
 
 ```bash
 # Sicherstellen, dass der Docker-Container lesen kann
-chmod -R 755 /volume1/docker/botcoin/
-chmod -R 700 /volume1/docker/botcoin/secrets
+chmod -R 755 /volume1/docker/SlopCoin/
+chmod -R 700 /volume1/docker/SlopCoin/secrets
 ```
 
 ---
@@ -155,8 +155,8 @@ Die `secrets/`-Ordner enthält deine sensiblen API-Keys. **Nie** diese Dateien i
 
 1. **@BotFather** auf Telegram suchen und starten
 2. **`/newbot`** eingeben
-3. Bot-Namen wählen (z.B. "BotCoin Advisor")
-4. Bot-Username wählen (z.B. "BotCoinAdvisorBot")
+3. Bot-Namen wählen (z.B. "SlopCoin Advisor")
+4. Bot-Username wählen (z.B. "SlopCoinAdvisorBot")
 5. **Token kopieren** (Format: `123456789:ABCdefGHIjklMNOpqrsTUVwxyz`)
 
 ### 2.2 Kraken API Key erstellen
@@ -180,7 +180,7 @@ Je nach Anbieter:
 ### 2.4 Secrets-Dateien erstellen
 
 ```bash
-cd /volume1/docker/botcoin/secrets
+cd /volume1/docker/SlopCoin/secrets
 ```
 
 #### Datei 1: `telegram_token.txt`
@@ -206,7 +206,7 @@ echo "dein-ai-hub-api-key" > ai_hub_key.txt
 ### 2.5 Rechte sperren (kritisch!)
 
 ```bash
-chmod 600 /volume1/docker/botcoin/secrets/*
+chmod 600 /volume1/docker/SlopCoin/secrets/*
 ```
 
 **Warum?** Docker und der Bot laufen als Non-Root und benötigen Leserechte. `chmod 600` stellt sicher, dass nur der Besitzer lesen/schreiben kann.
@@ -218,7 +218,7 @@ chmod 600 /volume1/docker/botcoin/secrets/*
 ### 3.1 `docker-compose.yml` öffnen
 
 ```bash
-cd /volume1/docker/botcoin
+cd /volume1/docker/SlopCoin
 nano docker-compose.yml
 # Oder über DSM File Station
 ```
@@ -273,7 +273,7 @@ environment:
 
 ### 3.3 Analyse-Architektur: Hybrid-Ansatz
 
-BotCoin nutzt einen **dreistufigen Hybrid-Ansatz** für maximale Qualität bei minimalen Kosten:
+SlopCoin nutzt einen **dreistufigen Hybrid-Ansatz** für maximale Qualität bei minimalen Kosten:
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────┐
@@ -296,7 +296,7 @@ BotCoin nutzt einen **dreistufigen Hybrid-Ansatz** für maximale Qualität bei m
 
 ### 3.4 Modell-Auswahl Tabelle
 
-Nur Modelle mit **Web-Search / Agentic-Fähigkeit** sind gelistet. Modelle ohne diese Fähigkeit (reine Text-Modelle, Embedding-Modelle) sind für BotCoin nicht geeignet.
+Nur Modelle mit **Web-Search / Agentic-Fähigkeit** sind gelistet. Modelle ohne diese Fähigkeit (reine Text-Modelle, Embedding-Modelle) sind für SlopCoin nicht geeignet.
 
 **Preise Stand: Feb 2026 — Alle Modelle EU-hosted verfügbar**
 
@@ -343,7 +343,7 @@ tmpfs:
   - /tmp_docker:size=200M,mode=755
 ```
 
-**Wichtig**: `/tmp_docker` wird als In-Memory-Dateisystem (tmpfs) gemountet. Dort speichert BotCoin Baseline, Performance-Historie und Cache. Diese Daten gehen beim Container-Neustart verloren — das ist gewollt (frischer Start).
+**Wichtig**: `/tmp_docker` wird als In-Memory-Dateisystem (tmpfs) gemountet. Dort speichert SlopCoin Baseline, Performance-Historie und Cache. Diese Daten gehen beim Container-Neustart verloren — das ist gewollt (frischer Start).
 
 ---
 
@@ -352,7 +352,7 @@ tmpfs:
 ### 4.1 Docker-Compose ausführen
 
 ```bash
-cd /volume1/docker/botcoin
+cd /volume1/docker/SlopCoin
 docker-compose up -d --build
 ```
 
@@ -364,19 +364,19 @@ docker-compose up -d --build
 ### 4.2 Container-Status prüfen
 
 ```bash
-docker ps | grep botcoin
+docker ps | grep SlopCoin
 ```
 
 Erwartete Ausgabe:
 ```
 CONTAINER ID   IMAGE          COMMAND                  CREATED        STATUS        PORTS     NAMES
-abc123...      botcoin_...   "python src/main.py"     2 minutes ago  Up 2 minutes             botcoin_advisor
+abc123...      SlopCoin_...   "python src/main.py"     2 minutes ago  Up 2 minutes             SlopCoin_advisor
 ```
 
 ### 4.3 Logs ansehen (wichtig!)
 
 ```bash
-docker logs -f botcoin_advisor
+docker logs -f SlopCoin_advisor
 ```
 
 **Erwartete Logs beim ersten Start:**
@@ -385,8 +385,8 @@ INFO - Initialisiere Komponenten…
 INFO - Markets geladen: 200 verfügbar
 INFO - Brain connected to https://dein-ai-hub.de/v1 using claude-opus-4-6 (Analyst) / claude-sonnet-4-6 (Guardian)
 INFO - Alle Komponenten initialisiert
-INFO - BotCoin v0.1.0 startet – Telegram-Befehle: /status, /pause, /resume, /help
-INFO - 🚀 BotCoin v0.1.0 startet...
+INFO - SlopCoin v0.1.0 startet – Telegram-Befehle: /status, /pause, /resume, /help
+INFO - 🚀 SlopCoin v0.1.0 startet...
 INFO - Baseline erstellt: Portfolio-Wert XXX.XX EUR
 ```
 
@@ -405,11 +405,11 @@ INFO - Baseline erstellt: Portfolio-Wert XXX.XX EUR
 
 ### 5.1 Baseline-Erstellung abwarten
 
-Beim **ersten Start** erstellt BotCoin automatisch eine Baseline (Momentaufnahme deines Portfolios). Dies dauert 1-2 Minuten.
+Beim **ersten Start** erstellt SlopCoin automatisch eine Baseline (Momentaufnahme deines Portfolios). Dies dauert 1-2 Minuten.
 
 Du erhältst eine Telegram-Nachricht:
 ```
-BotCoin v0.1.0 gestartet
+SlopCoin v0.1.0 gestartet
 
 Baseline erstellt: Portfolio-Wert 100.00 EUR
 
@@ -427,7 +427,7 @@ Standardmäßig läuft der Bot **1x täglich** (um 08:00 Uhr). Um sofort zu test
 
 **Option A: Container neu starten** (löst sofortigen ersten Zyklus aus)
 ```bash
-docker-compose restart botcoin_advisor
+docker-compose restart SlopCoin_advisor
 ```
 
 **Option B: Warten** (erster Zyklus nach 10 Minuten, dann 1x täglich im Analyse-Fenster)
@@ -622,7 +622,7 @@ Zeigt diese Befehlsübersicht.
 ```
 Antwort:
 ```
-BotCoin v0.1.0 – Befehle
+SlopCoin v0.1.0 – Befehle
 
 /status – Aktuellen Portfolio-Status abrufen
 /dashboard – Visuelle Portfolio-Allokation
@@ -646,7 +646,7 @@ Das Caching-System speichert API-Antworten zwischen und spart ~70% der API-Koste
 
 **Cache-Verzeichnis prüfen:**
 ```bash
-docker exec botcoin_advisor ls -la /tmp_docker/cache/
+docker exec SlopCoin_advisor ls -la /tmp_docker/cache/
 ```
 
 **Cache-TTLs (in `data_fetcher.py`):**
@@ -664,12 +664,12 @@ Du kannst verschiedene Modelle testen und die Kosten/Performance vergleichen.
 1. Ändere `AI_MODEL_ANALYSIS` in `docker-compose.yml`
 2. Container neu starten: `docker-compose up -d --build`
 3. Warte auf den nächsten Analyse-Zyklus
-4. Prüfe Logs: `docker logs botcoin_advisor | grep "Analyst denkt nach"`
+4. Prüfe Logs: `docker logs SlopCoin_advisor | grep "Analyst denkt nach"`
 
 **Kosten-Tracking:**
 ```bash
 # API-Kosten in Logs suchen (falls implementiert)
-docker logs botcoin_advisor | grep "cost"
+docker logs SlopCoin_advisor | grep "cost"
 ```
 
 ### Analyse-Fenster anpassen
@@ -717,22 +717,22 @@ environment:
 
 **Live-Logs (empfohlen für Debugging):**
 ```bash
-docker logs -f botcoin_advisor
+docker logs -f SlopCoin_advisor
 ```
 
 **Letzte 100 Zeilen:**
 ```bash
-docker logs --tail 100 botcoin_advisor
+docker logs --tail 100 SlopCoin_advisor
 ```
 
 **Logs mit Timestamps:**
 ```bash
-docker logs -f --timestamps botcoin_advisor
+docker logs -f --timestamps SlopCoin_advisor
 ```
 
 **Logs in Datei exportieren:**
 ```bash
-docker logs botcoin_advisor > botcoin_logs_$(date +%Y%m%d_%H%M%S).txt
+docker logs SlopCoin_advisor > SlopCoin_logs_$(date +%Y%m%d_%H%M%S).txt
 ```
 
 ### Container Management
@@ -774,14 +774,14 @@ docker-compose down -v
    ```
 4. **Logs prüfen**:
    ```bash
-   docker logs -f botcoin_advisor
+   docker logs -f SlopCoin_advisor
    ```
 
 ### Performance überwachen
 
 **Container-Ressourcen:**
 ```bash
-docker stats botcoin_advisor
+docker stats SlopCoin_advisor
 ```
 
 **Erwartete Werte:**
@@ -816,10 +816,10 @@ docker stats botcoin_advisor
 
 2. **Bot pausiert**
    - Sende `/resume` in Telegram
-   - Prüfe Pause-State-Datei: `docker exec botcoin_advisor cat /tmp_docker/botcoin_paused.json`
+   - Prüfe Pause-State-Datei: `docker exec SlopCoin_advisor cat /tmp_docker/SlopCoin_paused.json`
 
 3. **Kein Handlungsbedarf**
-   - BotCoin sendet **nur** bei relevanten Signalen
+   - SlopCoin sendet **nur** bei relevanten Signalen
    - Portfolio stabil? Dann keine Nachrichten
    - Teste mit `/status` (funktioniert immer)
 
@@ -835,7 +835,7 @@ docker stats botcoin_advisor
 **Lösung:**
 1. Prüfe Cache-Verzeichnis:
    ```bash
-   docker exec botcoin_advisor ls -la /tmp_docker/cache/
+   docker exec SlopCoin_advisor ls -la /tmp_docker/cache/
    ```
    Sollte viele `.json` Dateien enthalten.
 
@@ -854,8 +854,8 @@ docker stats botcoin_advisor
 
 **Diagnose:**
 ```bash
-docker logs botcoin_advisor
-docker ps -a | grep botcoin
+docker logs SlopCoin_advisor
+docker ps -a | grep SlopCoin
 docker-compose logs
 ```
 
@@ -882,7 +882,7 @@ docker-compose logs
    ```json
    {"key": "...", "secret": "..."}
    ```
-3. **Rate Limit**: BotCoin hat `enableRateLimit=True`, aber zu viele Zyklen können trotzdem limitieren
+3. **Rate Limit**: SlopCoin hat `enableRateLimit=True`, aber zu viele Zyklen können trotzdem limitieren
    - Intervall erhöhen (`SCHEDULE_INTERVAL_HOURS=6`)
    - Caching sicherstellen
 
@@ -905,10 +905,10 @@ docker-compose logs
 3. **API Key prüfen**: `ai_hub_key.txt` korrekt?
 4. **Logs detailliert**:
    ```bash
-   docker logs botcoin_advisor | grep -A 5 "Analyst\|Guardian"
+   docker logs SlopCoin_advisor | grep -A 5 "Analyst\|Guardian"
    ```
 
-**Fallback**: BotCoin sendet trotzdem eine Nachricht (mit "⚠️ (Guardian Error)").
+**Fallback**: SlopCoin sendet trotzdem eine Nachricht (mit "⚠️ (Guardian Error)").
 
 ---
 
@@ -924,7 +924,7 @@ docker-compose logs
 
 ### Regelmäßige Checks (monatlich)
 
-- [ ] **Logs prüfen** auf Fehler (`docker logs botcoin_advisor`)
+- [ ] **Logs prüfen** auf Fehler (`docker logs SlopCoin_advisor`)
 - [ ] **API-Kosten** im Blick behalten (Provider-Dashboard)
 - [ ] **Secrets-Rotation** planen (alle 90 Tage neue Keys)
 - [ ] **Container-Updates** einspielen (wenn neue Version verfügbar)
@@ -957,7 +957,7 @@ docker-compose logs
 
 ### Health-Check
 
-BotCoin sendet beim Start automatisch eine Baseline-Erstellungsnachricht. Wenn du diese erhältst, funktioniert der Bot.
+SlopCoin sendet beim Start automatisch eine Baseline-Erstellungsnachricht. Wenn du diese erhältst, funktioniert der Bot.
 
 **Health-Check-Intervall:**
 - Baseline: Beim ersten Start
@@ -990,9 +990,9 @@ BotCoin sendet beim Start automatisch eine Baseline-Erstellungsnachricht. Wenn d
 Erstelle `monitor.sh`:
 ```bash
 #!/bin/bash
-CONTAINER=botcoin_advisor
+CONTAINER=SlopCoin_advisor
 
-echo "=== BotCoin Status ==="
+echo "=== SlopCoin Status ==="
 echo "Container: $(docker ps -f name=$CONTAINER --format '{{.Status}}')"
 echo "Uptime: $(docker ps -f name=$CONTAINER --format '{{.RunningFor}}')"
 echo "Last log:"
@@ -1025,11 +1025,11 @@ docker exec $CONTAINER du -sh /tmp_docker/cache/
 **Option 1: Docker exec (laufender Container)**
 ```bash
 # Backup-Ordner erstellen
-mkdir -p /volume1/docker/botcoin/backup
+mkdir -p /volume1/docker/SlopCoin/backup
 
 # Dateien aus Container kopieren (nur solange Container läuft!)
-docker cp botcoin_advisor:/tmp_docker/portfolio_baseline.json /volume1/docker/botcoin/backup/
-docker cp botcoin_advisor:/tmp_docker/performance_history.json /volume1/docker/botcoin/backup/
+docker cp SlopCoin_advisor:/tmp_docker/portfolio_baseline.json /volume1/docker/SlopCoin/backup/
+docker cp SlopCoin_advisor:/tmp_docker/performance_history.json /volume1/docker/SlopCoin/backup/
 ```
 
 **Option 2: Persistentes Volume (empfohlen)**
@@ -1065,9 +1065,9 @@ docker-compose up -d
 
 **Szenario 3: Baseline aus Backup wiederherstellen**
 1. Container stoppen: `docker-compose stop`
-2. Backup-Datei kopieren: `cp /volume1/docker/botcoin/backup/portfolio_baseline.json ./data/`
+2. Backup-Datei kopieren: `cp /volume1/docker/SlopCoin/backup/portfolio_baseline.json ./data/`
 3. Container starten: `docker-compose up -d`
-4. BotCoin erkennt bestehende Baseline und setzt fort
+4. SlopCoin erkennt bestehende Baseline und setzt fort
 
 ---
 
@@ -1075,25 +1075,25 @@ docker-compose up -d
 
 ### Allgemein
 
-**Q: Wie oft meldet sich BotCoin?**
+**Q: Wie oft meldet sich SlopCoin?**
 A: Nur bei echtem Handlungsbedarf (z.B. +20% Gewinn, -15% Verlust, Rebalancing nötig). Bei stabilen Portfolios kann es sein, dass du mehrere Tage keine Nachricht bekommst – das ist **beabsichtigt**.
 
-**Q: Kann BotCoin automatisch handeln?**
-A: **Nein.** BotCoin ist ein Advisor, kein Trader. Er gibt Empfehlungen, du musst selbst handeln. Dein Kraken API Key sollte keine Trade-Rechte haben.
+**Q: Kann SlopCoin automatisch handeln?**
+A: **Nein.** SlopCoin ist ein Advisor, kein Trader. Er gibt Empfehlungen, du musst selbst handeln. Dein Kraken API Key sollte keine Trade-Rechte haben.
 
 **Q: Was passiert bei einem Internet-Ausfall?**
-A: Der Container läuft weiter, aber API-Calls schlagen fehl. BotCoin protokolliert Fehler und versucht beim nächsten Zyklus wieder. Bei anhaltendem Ausfall erhältst du keine Nachrichten.
+A: Der Container läuft weiter, aber API-Calls schlagen fehl. SlopCoin protokolliert Fehler und versucht beim nächsten Zyklus wieder. Bei anhaltendem Ausfall erhältst du keine Nachrichten.
 
 **Q: Kann ich mehrere Bots parallel laufen lassen?**
 A: Ja, aber jeder braucht:
-- Eigenes Verzeichnis (z.B. `botcoin1/`, `botcoin2/`)
+- Eigenes Verzeichnis (z.B. `SlopCoin1/`, `SlopCoin2/`)
 - Eigene Secrets
 - Eigene `docker-compose.yml` mit unterschiedlichen Container-Namen
 - Eigene Telegram User-ID (oder denselben Bot, aber unterschiedliche Chats)
 
 ### Kosten
 
-**Q: Wie viel kostet BotCoin monatlich?**
+**Q: Wie viel kostet SlopCoin monatlich?**
 A: Dank des 1x/Tag Hybrid-Ansatzes sind die Kosten sehr gering:
 - KI-Modell-Wahl (dominanter Faktor)
 - Caching-Effizienz (~70% Einsparung möglich)
@@ -1129,7 +1129,7 @@ A: Theoretisch ja, aber Code muss angepasst werden:
 **Q: Wie sichere ich meine Baseline?**
 A: Siehe [Backup & Recovery](#backup--recovery). Empfohlen: Volume-Mount in `docker-compose.yml` setzen, dann sind Daten automatisch im Host-Dateisystem.
 
-**Q: Kann ich BotCoin auf einem VPS (nicht Synology) laufen lassen?**
+**Q: Kann ich SlopCoin auf einem VPS (nicht Synology) laufen lassen?**
 A: Ja! Jeder Docker-fähige Server funktioniert:
 - Ubuntu/Debian mit Docker
 - Raspberry Pi (ARM, aber Python/CCXT unterstützt ARM)
@@ -1166,11 +1166,11 @@ Mögliche Features für zukünftige Versionen:
 
 ## 🎉 Fertig!
 
-Du hast BotCoin v1.0 erfolgreich installiert und konfiguriert. Der Bot läuft jetzt im Hintergrund, überwacht dein Portfolio und meldet sich nur bei echten Handlungsempfehlungen.
+Du hast SlopCoin v1.0 erfolgreich installiert und konfiguriert. Der Bot läuft jetzt im Hintergrund, überwacht dein Portfolio und meldet sich nur bei echten Handlungsempfehlungen.
 
 ### Nächste Schritte
 
-1. **Beobachte die ersten Logs**: `docker logs -f botcoin_advisor`
+1. **Beobachte die ersten Logs**: `docker logs -f SlopCoin_advisor`
 2. **Warte auf die erste Analyse** (innerhalb des Analyse-Fensters)
 3. **Teste `/status`** in Telegram
 4. **Passe ggf. das Analyse-Fenster** an deine Bedürfnisse an
@@ -1183,13 +1183,13 @@ Du hast BotCoin v1.0 erfolgreich installiert und konfiguriert. Der Bot läuft je
 Bei Problemen:
 
 1. **Dokumentation**: Siehe [Troubleshooting](#troubleshooting) und [README.md](../README.md)
-2. **Logs prüfen**: `docker logs botcoin_advisor`
+2. **Logs prüfen**: `docker logs SlopCoin_advisor`
 3. **GitHub Issues**: (Falls vorhanden)
 4. **Community**: (Falls vorhanden)
 
 **Wichtige Info bei Support-Anfragen:**
-- BotCoin Version (v1.0)
-- Docker-Image Version (`docker images | grep botcoin`)
+- SlopCoin Version (v1.0)
+- Docker-Image Version (`docker images | grep SlopCoin`)
 - Letzte 20 Log-Zeilen
 - Beschreibung des Problems
 - Was hast du bereits probiert?
@@ -1198,6 +1198,6 @@ Bei Problemen:
 
 <div align="center">
 
-**Viel Erfolg mit deinem BotCoin!** 🛡️📈
+**Viel Erfolg mit deinem SlopCoin!** 🛡️📈
 
 </div>
