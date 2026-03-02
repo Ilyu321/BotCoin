@@ -387,7 +387,7 @@ class MarketData:
             volume_ratio = current_volume / avg_volume if avg_volume > 0 else 1.0
 
             # On-Balance Volume (OBV)
-            df['obv'] = ta.obv(close=df['close'], volume=df['volume'])
+            df['obv'] = df.ta.obv()
             current_obv = df['obv'].iloc[-1]
             obv_20ma = df['obv'].rolling(20).mean().iloc[-1]
             obv_trend = "bullish" if current_obv > obv_20ma else "bearish"
@@ -396,9 +396,8 @@ class MarketData:
             tenkan = kijun = senkou_a = senkou_b = chikou = None
             cloud_position: Optional[str] = None
             try:
-                ichimoku_result = df.ta.ichimoku()
-                # pandas_ta 0.4.x gibt ein Tuple (df_ichimoku, df_span) zurück
-                ichimoku = ichimoku_result[0] if isinstance(ichimoku_result, tuple) else ichimoku_result
+                # pandas-ta-classic gibt direkt einen DataFrame zurück (kein Tuple)
+                ichimoku = df.ta.ichimoku()
                 tenkan = ichimoku['ITS_9'].iloc[-1] if 'ITS_9' in ichimoku.columns else None
                 kijun = ichimoku['IKS_26'].iloc[-1] if 'IKS_26' in ichimoku.columns else None
                 senkou_a = ichimoku['ISA_9'].iloc[-1] if 'ISA_9' in ichimoku.columns else None
