@@ -187,10 +187,13 @@ class MarketData:
     # ── Öffentliche Datenabruf-Methoden ──────────────────────────────────────
 
     def get_portfolio(self) -> Dict[str, float]:
-        """Holt Kontostand-Positionen mit Betrag > 0.001.
+        """Holt Kontostand-Positionen.
+
+        Coins werden immer übernommen (sofern Menge > 0), Fiat-Währungen nur,
+        wenn der Betrag mindestens 1 Einheit (z.B. 1 EUR, 1 USD) beträgt.
 
         Returns:
-            Dict mit Coin-Symbol → Menge
+            Dict mit Symbol → Menge
         """
         cached = cache_manager.get('portfolio')
         if cached is not None:
@@ -207,6 +210,9 @@ class MarketData:
             except Exception as log_e:
                 logger.debug(f"Konnte Balance-Preview nicht loggen: {log_e}")
 
+            # Fiat-Währungen explizit definieren
+            FIAT_CURRENCIES = {"EUR", "USD", "GBP", "CAD", "JPY", "CHF", "AUD", "ZEUR", "ZUSD"}
+
             portfolio: Dict[str, float] = {}
             for k, v in bal.items():
                 # ccxt-Balance-Einträge sind i.d.R. Dicts mit Keys wie 'total', 'free', 'used'
@@ -220,7 +226,16 @@ class MarketData:
                     total_val = float(total)
                 except (TypeError, ValueError):
                     continue
-                if total_val > 0.001:
+
+                if k in FIAT_CURRENCIES:
+                    # Fiat: nur relevante Beträge >= 1 Einheit (z.B. 1 EUR, 1 USD)
+                    if total_val < 1.0:
+                        continue
+                    portfolio[k] = total_val
+                else:
+                    # Coins: immer übernehmen, solange Menge > 0
+                    if total_val <= 0:
+                        continue
                     portfolio[k] = total_val
 
             # Debug-Log des normalisierten Portfolios, um Mapping-Probleme (z.B. BTC vs XBT) zu erkennen
