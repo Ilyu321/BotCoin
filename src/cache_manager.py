@@ -7,6 +7,11 @@ import os
 import shutil
 import logging
 
+try:
+    import psutil  # type: ignore
+except Exception:  # pragma: no cover - optional dependency
+    psutil = None
+
 logger = logging.getLogger(__name__)
 
 
