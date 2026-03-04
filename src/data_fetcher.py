@@ -199,7 +199,30 @@ class MarketData:
 
         try:
             bal = self._fetch_balance_with_retry()
-            portfolio = {k: v['total'] for k, v in bal.items() if v['total'] > 0.001}
+            # Debug-Log der rohen Balance-Struktur (gekürzt), um Strukturprobleme zu erkennen
+            try:
+                # Nur die wichtigsten Keys loggen, um Log-Spam zu vermeiden
+                bal_preview = {k: {sk: sv for sk, sv in v.items() if sk in ['total', 'free', 'used']} for k, v in bal.items() if isinstance(v, dict)}
+                logger.debug(f"Raw balance preview: {json.dumps(bal_preview)[:2000]}")
+            except Exception as log_e:
+                logger.debug(f"Konnte Balance-Preview nicht loggen: {log_e}")
+
+            portfolio: Dict[str, float] = {}
+            for k, v in bal.items():
+                # ccxt-Balance-Einträge sind i.d.R. Dicts mit Keys wie 'total', 'free', 'used'
+                if not isinstance(v, dict):
+                    continue
+                total = v.get('total')
+                # Manche ccxt-Versionen liefern 0 statt None, wir filtern nur wirklich relevante Positionen
+                if total is None:
+                    continue
+                try:
+                    total_val = float(total)
+                except (TypeError, ValueError):
+                    continue
+                if total_val > 0.001:
+                    portfolio[k] = total_val
+
             logger.info(f"Portfolio geladen: {len(portfolio)} Coins")
             cache_manager.set('portfolio', portfolio, ttl=PORTFOLIO_CACHE_TTL)
             return portfolio
