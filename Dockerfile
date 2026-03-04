@@ -1,5 +1,10 @@
 FROM python:3.12-slim-bookworm
 
+# curl für Healthcheck installieren (wird von docker-compose.yml verwendet)
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/*
+
 # Security: User anlegen
 RUN groupadd -r SlopCoin && useradd -r -g SlopCoin SlopCoin
 
