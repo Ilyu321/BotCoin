@@ -48,6 +48,12 @@ class MarketData:
             'secret': creds['secret'],
             'enableRateLimit': True,
         })
+        # Globalen Timeout für alle Requests setzen (ms)
+        try:
+            self.exchange.timeout = CCXT_TIMEOUT_SECONDS * 1000
+        except Exception as e:
+            logger.warning(f"Konnte ccxt Timeout nicht setzen: {e}")
+        logger.info(f"ccxt Version: {ccxt.__version__}, Timeout: {getattr(self.exchange, 'timeout', 'unknown')} ms")
 
         # Markets einmalig laden für Verfügbarkeitsprüfung (mit Retry)
         try:
@@ -133,20 +139,20 @@ class MarketData:
            exceptions=(ccxt.NetworkError, ccxt.ExchangeError, ConnectionError, TimeoutError))
     def _load_markets_with_retry(self) -> None:
         """Lädt Markets mit Retry-Logik."""
-        self.markets = self.exchange.load_markets(timeout=CCXT_TIMEOUT_SECONDS)
+        self.markets = self.exchange.load_markets()
         logger.info(f"Markets geladen: {len(self.markets)} verfügbar")
 
     @retry(max_attempts=3, base_delay=1.0, max_delay=30.0,
            exceptions=(ccxt.NetworkError, ccxt.ExchangeError, ConnectionError, TimeoutError))
     def _fetch_balance_with_retry(self) -> Dict:
         """Holt Kontostand mit Retry-Logik."""
-        return self.exchange.fetch_balance(timeout=CCXT_TIMEOUT_SECONDS)
+        return self.exchange.fetch_balance()
 
     @retry(max_attempts=3, base_delay=1.0, max_delay=30.0,
            exceptions=(ccxt.NetworkError, ccxt.ExchangeError, ConnectionError, TimeoutError))
     def _fetch_ticker_with_retry(self, symbol: str) -> Dict:
         """Holt einzelnen Ticker mit Retry-Logik."""
-        return self.exchange.fetch_ticker(symbol, timeout=CCXT_TIMEOUT_SECONDS)
+        return self.exchange.fetch_ticker(symbol)
 
     @retry(max_attempts=3, base_delay=1.0, max_delay=30.0,
            exceptions=(ccxt.NetworkError, ccxt.ExchangeError, ConnectionError, TimeoutError))
@@ -159,7 +165,7 @@ class MarketData:
         Returns:
             Dict mit Ticker-Daten pro Symbol
         """
-        tickers = self.exchange.fetch_tickers(symbols=symbols, timeout=CCXT_TIMEOUT_SECONDS)
+        tickers = self.exchange.fetch_tickers(symbols=symbols)
         logger.debug(f"Batch-Tickers geladen: {len(tickers)} Coins")
         return tickers
 
@@ -176,7 +182,7 @@ class MarketData:
         Returns:
             Liste von OHLCV-Datenpunkten
         """
-        return self.exchange.fetch_ohlcv(symbol, timeframe, limit=limit, timeout=CCXT_TIMEOUT_SECONDS)
+        return self.exchange.fetch_ohlcv(symbol, timeframe, limit=limit)
 
     # ── Öffentliche Datenabruf-Methoden ──────────────────────────────────────
 
