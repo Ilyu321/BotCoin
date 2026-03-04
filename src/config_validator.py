@@ -24,7 +24,7 @@ class ConfigValidator:
             client = OpenAI(api_key=api_key, base_url=base_url)
             try:
                 client.chat.completions.create(
-                    model="gpt-3.5-turbo",
+                    model="gpt-oss-120b-sovereign",
                     messages=[{"role": "user", "content": "test"}],
                     max_tokens=1,
                     timeout=10
